@@ -29,4 +29,9 @@ public class PropertyService implements IProperty {
         return repo.getAllProperties();
     }
 
+    @Override
+    public void createProperty(Property property) {
+        repo.createProperty(property);
+    }
+
 }

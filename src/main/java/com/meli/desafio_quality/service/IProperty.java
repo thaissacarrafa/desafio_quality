@@ -11,4 +11,6 @@ public interface IProperty {
 
     List<Property> getAllProperties();
 
+    void createProperty(Property property);
+
 }

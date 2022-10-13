@@ -1,10 +1,13 @@
 package com.meli.desafio_quality.repository;
 
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.meli.desafio_quality.model.Property;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +44,22 @@ public class PropertyRepo {
         }
 
         return properties;
+    }
+
+    public void createProperty(Property property) {
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+
+        List<Property> properties = getAllProperties();
+
+        properties = new ArrayList<>(properties);
+
+        properties.add(property);
+
+        try {
+            writer.writeValue(new File(fileLink), properties);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

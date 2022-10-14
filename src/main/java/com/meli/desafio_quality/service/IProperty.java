@@ -17,5 +17,5 @@ public interface IProperty {
 
     Room getBiggerRoom(String propName);
 
-    List<Room>  getAreaRoomsService(String propName );
+    List<Room>  getAreaRooms(String propName);
 }

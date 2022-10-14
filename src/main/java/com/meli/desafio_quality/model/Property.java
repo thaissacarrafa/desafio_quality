@@ -18,5 +18,6 @@ public class Property {
     private String propName;
     private District district;
     private List<Room> rooms;
+    private double propArea;
 
 }

@@ -39,6 +39,17 @@ public class PropertyService implements IProperty {
     }
 
     @Override
+    public Property getTotalArea(String propName) {
+        Property property = getProperty(propName);
+        double propArea = 0;
+        for (Room room : property.getRooms()) {
+            propArea += room.getRoomLength() * room.getRoomWidth();
+        }
+        return property;
+    }
+
+
+    @Override
     public Room getBiggerRoom(String propName) {
         Optional<Property> property = this.repo.getProperty(propName);
 

@@ -32,7 +32,7 @@ public class PropertyService implements IProperty {
     }
 
     @Override
-    public List<Room>  getAeraRomsService(String propName) {
+    public List<Room>  getAreaRoomsService(String propName) {
         List<Room> property = repo.getProperty(propName).get().getRooms();
         property.stream().map(room -> { room.setRoomArea(); return null;}).collect(Collectors.toList());
         return property;

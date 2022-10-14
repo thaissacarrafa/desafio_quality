@@ -34,20 +34,24 @@ public class PropertyService implements IProperty {
     public Room getBiggerRoom(String propName) {
         Optional<Property> property = this.repo.getProperty(propName);
 
-        if(property.isEmpty()){
+        if (property.isEmpty()) {
             throw new NotFoundException("Propriedade: " + propName + " não encontrada!");
         }
 
         List<Room> roomList = property.get().getRooms();
-        double area = 0;
         Room roomWidth = new Room();
+        double area = 0.0;
 
-        for(Room room : roomList){
-            if(this.calculoArea(room) > area){
-                area = this.calculoArea(room);
-                roomWidth = room;
+            for (int index = 0; index < roomList.size(); index++) {
+                Room element = roomList.get(index);
+                element.setRoomArea();
+
+                if (element.getRoomArea() >= area) {
+                    area = element.getRoomArea();
+                    roomWidth = element;
+                }
             }
+
+            return roomWidth;
         }
-        return roomWidth;
-    }
 }

@@ -26,9 +26,4 @@ public class PropertyController {
         return ResponseEntity.ok(service.getAllProperties());
     }
 
-  @GetMapping("/{propName}/roomsArea")
-    public ResponseEntity<List<Room>> getAreaRoms(@PathVariable String propName){
-        return ResponseEntity.ok(service.getAeraRomsService(propName));
-  }
-
 }

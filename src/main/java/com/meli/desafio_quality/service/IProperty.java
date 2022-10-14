@@ -14,4 +14,5 @@ public interface IProperty {
 
     List<Room>  getAeraRomsService(String propName );
 
+    Object getBiggerRoom(String propName);
 }

@@ -11,7 +11,7 @@ public class Room {
     private double roomLength;
     private double roomArea = 0.0;
 
-    public void setRoomArea() {
-        this.roomArea = roomWidth * roomLength;
+    public double setRoomArea() {
+       return this.roomArea = roomWidth * roomLength;
     }
 }

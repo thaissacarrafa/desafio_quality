@@ -45,6 +45,7 @@ public class PropertyService implements IProperty {
         for (Room room : property.getRooms()) {
             propArea += room.getRoomLength() * room.getRoomWidth();
         }
+        property.setPropArea(propArea);
         return property;
     }
 

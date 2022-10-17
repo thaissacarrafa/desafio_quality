@@ -13,9 +13,8 @@ public class RoomDTO {
     private String roomName;
     private double roomArea;
 
-    public RoomDTO(Room room) {
+    public RoomDTO(Room room, double roomArea) {
         this.roomName = room.getRoomName();
-        this.roomArea = room.getRoomArea();
+        this.roomArea = roomArea;
     }
-
 }

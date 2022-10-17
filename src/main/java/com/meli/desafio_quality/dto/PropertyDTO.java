@@ -19,12 +19,11 @@ public class PropertyDTO {
     private String largestRoom;
     private List<RoomDTO> rooms;
 
-    public PropertyDTO(Property property) {
+    public PropertyDTO(Property property, double propArea, BigDecimal propValue, String largestRoom, List<RoomDTO> rooms) {
         this.propName = property.getPropName();
-        this.propArea = property.getPropArea();
-        this.propValue = property.getPropValue();
-        this.largestRoom = property.getLargestRoom();
-        this.rooms = property.getRooms();
+        this.propArea = propArea;
+        this.propValue = propValue;
+        this.largestRoom = largestRoom;
+        this.rooms = rooms;
     }
-
 }

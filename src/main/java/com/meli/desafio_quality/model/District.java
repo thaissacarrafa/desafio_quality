@@ -1,13 +1,15 @@
 package com.meli.desafio_quality.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class District {
 
     private String propDistrict;
     private BigDecimal valueDistrictM2;
-
 }

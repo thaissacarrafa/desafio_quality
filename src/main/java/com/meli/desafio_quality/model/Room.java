@@ -1,13 +1,14 @@
 package com.meli.desafio_quality.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Room {
 
     private String roomName;
     private double roomWidth;
     private double roomLength;
-    private double roomArea;
-
 }

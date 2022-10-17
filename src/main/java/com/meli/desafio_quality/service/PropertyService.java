@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PropertyService implements IProperty {
 
-    private double getRoomArea(Room room) {
+    public double getRoomArea(Room room) {
         return room.getRoomWidth() * room.getRoomLength();
     }
 

@@ -20,4 +20,5 @@ public class Property {
     private District district;
     private List<Room> rooms;
     private BigDecimal propValue;
+    private double propArea;
 }

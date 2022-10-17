@@ -10,6 +10,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -59,5 +60,28 @@ public class PropertyServiceTest {
 
         assertThat(response).isEqualTo("room1");
 
+    }
+
+    @Test
+    void getRoomsFormatted() {
+    }
+
+    @Test
+    @DisplayName("Validating Property Area")
+    void getPropArea() {
+        List<Room> rooms = setup();
+
+        double response = this.service.getPropArea(rooms);
+        assertThat(response).isNotNegative();
+        assertThat(response).isEqualTo(1600);
+        assertThat(response).isNotNegative();
+    }
+
+    @Test
+    void getPropValue() {
+    }
+
+    @Test
+    void processProperty() {
     }
 }

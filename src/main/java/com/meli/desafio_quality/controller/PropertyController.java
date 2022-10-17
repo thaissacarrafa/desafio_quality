@@ -2,7 +2,6 @@ package com.meli.desafio_quality.controller;
 
 import com.meli.desafio_quality.dto.PropertyDTO;
 import com.meli.desafio_quality.model.Property;
-import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.service.IProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ public class PropertyController {
 
     @PostMapping
     public ResponseEntity<PropertyDTO> processProperty(
-        @RequestBody Property property
+            @RequestBody Property property
     ) {
         return ResponseEntity.ok(service.processProperty(property));
     }

@@ -4,6 +4,7 @@ import com.meli.desafio_quality.dto.PropertyDTO;
 import com.meli.desafio_quality.dto.RoomDTO;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class PropertyService implements IProperty {
                 largestRoom = room.getRoomName();
             }
         }
-
         return largestRoom;
     }
 
@@ -39,11 +39,29 @@ public class PropertyService implements IProperty {
     }
 
     @Override
+    public double getPropArea(List<Room> rooms) {
+        double propArea = 0.0;
+        for (Room room : rooms) {
+            propArea += room.getRoomLength() * room.getRoomWidth();
+        }
+        return propArea;
+    }
+
+    @Override
+    public BigDecimal getPropValue(Property property) {
+        double propArea = getPropArea(property.getRooms());
+        return property
+            .getDistrict()
+            .getValueDistrictM2()
+            .multiply(BigDecimal.valueOf(propArea));
+    }
+
+    @Override
     public PropertyDTO processProperty(Property property) {
         return new PropertyDTO(
             property,
-            0,
-            null,
+            getPropArea(property.getRooms()),
+            getPropValue(property),
             getLargestRoom(property.getRooms()),
             getRoomsFormatted(property.getRooms())
         );

@@ -1,9 +1,8 @@
 package com.meli.desafio_quality.exception;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -13,5 +12,4 @@ public class ExceptionDetails {
     private String title;
     private int status;
     private LocalDateTime timeStamp;
-
 }

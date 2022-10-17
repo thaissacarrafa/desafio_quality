@@ -1,54 +1,44 @@
 package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.dto.PropertyDTO;
+import com.meli.desafio_quality.dto.RoomDTO;
 import com.meli.desafio_quality.model.Property;
 import org.springframework.stereotype.Service;
 
 import com.meli.desafio_quality.model.Room;
-import com.meli.desafio_quality.repository.PropertyRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PropertyService implements IProperty {
 
-    public PropertyDTO processProperty(Property property) {
-        return new PropertyDTO(property, 0, null, null, null);
+    @Override
+    public List<RoomDTO> getRoomsFormatted(List<Room> rooms) {
+        return rooms.stream().map(room -> {
+            double roomArea = room.getRoomWidth() * room.getRoomLength();
+            return new RoomDTO(room, roomArea);
+        }).collect(Collectors.toList());
     }
 
     @Override
-    public List<Room> getAreaRoomsService(String propName) {
-        List<Room> property = repo.getProperty(propName).get().getRooms();
-        property.stream().map(room -> { room.setRoomArea(); return null;}).collect(Collectors.toList());
-        return property;
-    }
+    public String getLargestRoom(List<Room> rooms) {
+        String largestRoom = "";
+        double largestRoomArea = 0;
 
-    @Override
-    public Room getBiggerRoom(String propName) {
-        Optional<Property> property = this.repo.getProperty(propName);
-
-        if (property.isEmpty()) {
-            throw new NotFoundException("Propriedade: " + propName + " não encontrada!");
-        }
-
-        List<Room> roomList = property.get().getRooms();
-        Room roomWidth = new Room();
-        double area = 0.0;
-
-            for (int index = 0; index < roomList.size(); index++) {
-                Room element = roomList.get(index);
-                element.setRoomArea();
-
-                if (element.getRoomArea() >= area) {
-                    area = element.getRoomArea();
-                    roomWidth = element;
-                }
+        for (Room room : rooms) {
+            double roomArea = room.getRoomWidth() * room.getRoomLength();
+            if (roomArea > largestRoomArea) {
+                largestRoomArea = roomArea;
+                largestRoom = room.getRoomName();
             }
-
-            return roomWidth;
         }
+
+        return largestRoom;
+    }
+
+    @Override
+    public PropertyDTO processProperty(Property property) {
+        return new PropertyDTO(property, 0, null, getLargestRoom(property.getRooms()), getRoomsFormatted(property.getRooms()));
+    }
 }

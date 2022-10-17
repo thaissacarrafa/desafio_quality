@@ -28,12 +28,16 @@ public class DistrictRepo {
         return null;
     }
 
+    public boolean districtAlreadyExists(District district) {
+        return getAll().contains(district);
+    }
+
     public Optional<List<District>> saveDistrict(List<District> newDistricts) {
         List<District> districts = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         for (District currentDistrict : newDistricts) {
-            if (!districtAlredyExists(currentDistrict)) districts.add(
+            if (!districtAlreadyExists(currentDistrict)) districts.add(
                 currentDistrict
             );
         }
@@ -46,9 +50,5 @@ public class DistrictRepo {
         }
 
         return Optional.empty();
-    }
-
-    public boolean districtAlredyExists(District district) {
-        return getAll().contains(district);
     }
 }

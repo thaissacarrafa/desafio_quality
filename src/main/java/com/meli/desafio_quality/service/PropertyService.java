@@ -49,6 +49,7 @@ public class PropertyService implements IProperty {
         return rooms.stream().mapToDouble(this::getRoomArea).sum();
     }
 
+    @Override
     public BigDecimal getPropValue(Property property) {
         double propArea = getPropArea(property.getRooms());
         return property

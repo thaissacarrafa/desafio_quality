@@ -1,8 +1,7 @@
 package com.meli.desafio_quality.model;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+import lombok.*;
 
 @Getter
 @Setter

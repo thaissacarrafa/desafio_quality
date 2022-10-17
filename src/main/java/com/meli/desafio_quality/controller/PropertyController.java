@@ -15,8 +15,9 @@ public class PropertyController {
     private IProperty service;
 
     @PostMapping
-    public ResponseEntity<PropertyDTO> processProperty(@RequestBody Property property) {
+    public ResponseEntity<PropertyDTO> processProperty(
+        @RequestBody Property property
+    ) {
         return ResponseEntity.ok(service.processProperty(property));
     }
-
 }

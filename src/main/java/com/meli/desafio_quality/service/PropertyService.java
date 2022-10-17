@@ -10,5 +10,4 @@ public class PropertyService implements IProperty {
     public PropertyDTO processProperty(Property property) {
         return new PropertyDTO(property, 0, null, null, null);
     }
-
 }

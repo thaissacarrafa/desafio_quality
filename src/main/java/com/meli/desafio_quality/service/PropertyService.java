@@ -2,6 +2,7 @@ package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.dto.PropertyDTO;
 import com.meli.desafio_quality.dto.RoomDTO;
+import com.meli.desafio_quality.exception.NotFoundException;
 import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
@@ -42,12 +43,12 @@ public class PropertyService implements IProperty {
     @Override
     public List<RoomDTO> getRoomsFormatted(List<Room> rooms) {
         return rooms
-            .stream()
-            .map(room -> {
-                double roomArea = getRoomArea(room);
-                return new RoomDTO(room, roomArea);
-            })
-            .collect(Collectors.toList());
+                .stream()
+                .map(room -> {
+                    double roomArea = getRoomArea(room);
+                    return new RoomDTO(room, roomArea);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -59,24 +60,34 @@ public class PropertyService implements IProperty {
     public BigDecimal getPropValue(Property property) {
         double propArea = getPropArea(property.getRooms());
         return property
-            .getDistrict()
-            .getValueDistrictM2()
-            .multiply(BigDecimal.valueOf(propArea));
+                .getDistrict()
+                .getValueDistrictM2()
+                .multiply(BigDecimal.valueOf(propArea));
     }
 
     @Override
     public PropertyDTO processProperty(Property property) {
-        return new PropertyDTO(
-            property,
-            getPropArea(property.getRooms()),
-            getPropValue(property),
-            getLargestRoom(property.getRooms()),
-            getRoomsFormatted(property.getRooms())
-        );
+
+        if (districtExists(property.getDistrict())) {
+            return new PropertyDTO(
+                    property,
+                    getPropArea(property.getRooms()),
+                    getPropValue(property),
+                    getLargestRoom(property.getRooms()),
+                    getRoomsFormatted(property.getRooms()));
+        } else {
+            throw new NotFoundException("District not found");
+        }
     }
 
     @Override
-    public boolean districtExists(District district){
-        return districtRepo.getAll().contains(district);
+    public boolean districtExists(District district) {
+        try {
+            return districtRepo.getAll().stream().anyMatch(
+                d -> d.getPropDistrict().equals(district.getPropDistrict())
+            );
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }

@@ -1,14 +1,16 @@
 package com.meli.desafio_quality.service;
 
+import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
-import org.junit.jupiter.api.BeforeEach;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,5 +61,23 @@ public class PropertyServiceTest {
 
         assertThat(response).isEqualTo("room1");
 
+    }
+
+    @Test
+    @DisplayName("Validating property value")
+    public void getPropValue_returnsProperty_withValue() {
+        final BigDecimal expectedPropertyValue = new BigDecimal(600000);
+
+        District district = new District("District01", new BigDecimal(1000));
+        ArrayList<Room> rooms = new ArrayList<Room>(2);
+        Room room = new Room("room1", 10, 20, 200);
+        Room room2 = new Room("room2", 20.0, 20.0, 400);
+        rooms.add(room);
+        rooms.add(room2);
+        Property property = new Property("Property 01", district, rooms);
+
+        BigDecimal propertyValue  = this.service.getPropValue(property);
+
+        org.hamcrest.MatcherAssert.assertThat(propertyValue, Matchers.comparesEqualTo(expectedPropertyValue));
     }
 }

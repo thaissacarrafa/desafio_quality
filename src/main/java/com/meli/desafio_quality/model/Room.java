@@ -1,12 +1,12 @@
 package com.meli.desafio_quality.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import lombok.NoArgsConstructor;
 
 @Data
+//@NoArgsConstructor
+@AllArgsConstructor
 public class Room {
 
 
@@ -16,6 +16,6 @@ public class Room {
     private double roomArea = 0.0;
 
     public double setRoomArea() {
-       return this.roomArea = roomWidth * roomLength;
+        return this.roomArea = roomWidth * roomLength;
     }
 }

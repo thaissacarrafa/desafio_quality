@@ -66,7 +66,7 @@ public class PropertyService implements IProperty {
         }
 
         List<Room> roomList = property.get().getRooms();
-        Room roomWidth = new Room();
+
         double area = 0.0;
 
             for (int index = 0; index < roomList.size(); index++) {

@@ -57,9 +57,3 @@ public class PropertyReqDTO {
     @Size(max = 33, message = "O comprimento máximo do cômodo é de 33 metros.")
     private double roomLength;
 }
-// propName String 30 Nome da propriedade
-// propDistrict String 45 Bairro
-// valueDistrictM2 BigDecimal 13 Valor do metro quadrado no bairro
-// roomName String 30 Nome do cômodo
-// roomWidth double - Largura de um cômodo
-// roomLength double - Comprimento do cômodo

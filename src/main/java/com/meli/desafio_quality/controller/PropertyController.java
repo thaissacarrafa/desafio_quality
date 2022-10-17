@@ -21,6 +21,11 @@ public class PropertyController {
         return ResponseEntity.ok(service.getProperty(propName));
     }
 
+    @GetMapping("/totalArea/{propName}")
+    public ResponseEntity<Property> getTotalArea(@PathVariable String propName) {
+        return ResponseEntity.ok(service.getTotalArea(propName));
+    }
+
     @GetMapping
     public ResponseEntity<List<Property>> getAllProperties() {
         return ResponseEntity.ok(service.getAllProperties());

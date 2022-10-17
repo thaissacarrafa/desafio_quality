@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,22 +25,23 @@ public class PropertyServiceTest {
     private Property property;
 
     @BeforeEach
-    public void setup(){
-        Room room = new Room("room1", 30.0, 30.0, 0);
+    public ArrayList<Room> setup(){
+        ArrayList<Room> listsRooms = new ArrayList<Room>(2);
+        Room room = new Room("room1", 40.0, 30.0, 1200.0);
         Room room2 = new Room("room2", 20.0, 20.0, 0);
+        listsRooms.add(room);
+        listsRooms.add(room2);
+        return listsRooms;
     }
     @Test
     @DisplayName("Validating larger room")
     public void getBiggerRoom_returnsRoom_withBiggerRoomArea() {
-        final double expectedBiggerRoomArea = 900d;
-        Mockito.when(iProperty.getBiggerRoom(ArgumentMatchers.anyString()));
+        final double expectedBiggerRoomArea = 1200d;
 
-        Room response = this.service.getBiggerRoom(this.property.getPropName());
-        double responseArea = response.getRoomWidth() * response.getRoomLength();
+        String response = this.service.getLargestRoom(setup());
 
-        assertThat(response).isNotNull();
-        assertThat(response.getRoomName()).isNotNull();
-        assertThat(responseArea).isEqualTo(expectedBiggerRoomArea);
+        assertThat(response).isEqualTo("room1");
+
     }
 
 }

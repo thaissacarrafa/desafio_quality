@@ -3,12 +3,14 @@ package com.meli.desafio_quality.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-//@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class Room {
+@NoArgsConstructor
 
+public class Room {
 
     private String roomName;
     private double roomWidth;

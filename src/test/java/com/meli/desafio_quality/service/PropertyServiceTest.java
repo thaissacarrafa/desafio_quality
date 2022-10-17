@@ -24,8 +24,8 @@ public class PropertyServiceTest {
 
     private Property property;
 
-    @BeforeEach
-    public ArrayList<Room> setup(){
+//    @BeforeEach
+    public ArrayList<Room> setup() {
         ArrayList<Room> listsRooms = new ArrayList<Room>(2);
         Room room = new Room("room1", 40.0, 30.0, 1200.0);
         Room room2 = new Room("room2", 20.0, 20.0, 0);
@@ -33,6 +33,23 @@ public class PropertyServiceTest {
         listsRooms.add(room2);
         return listsRooms;
     }
+
+    @Test
+    @DisplayName("Validating room area")
+    void getRoomArea_testCalculate() {
+        final String RoomName = "RoomName";
+        final Double RoomWidth = 50.0;
+        final Double RoomLength = 50.0;
+        final double Result = RoomWidth * RoomLength;
+
+        Room room = new Room(RoomName, RoomWidth, RoomLength, Result);
+
+        double area = this.service.getRoomArea(room);
+        assertThat(area).isEqualTo(Result);
+        assertThat(area).isNotNull();
+        assertThat(area).isPositive();
+    }
+
     @Test
     @DisplayName("Validating larger room")
     public void getBiggerRoom_returnsRoom_withBiggerRoomArea() {
@@ -43,6 +60,4 @@ public class PropertyServiceTest {
         assertThat(response).isEqualTo("room1");
 
     }
-
 }
-

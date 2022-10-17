@@ -12,13 +12,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class PropertyService implements IProperty {
 
+    private double getRoomArea(Room room) {
+        return room.getRoomWidth() * room.getRoomLength();
+    }
+
     @Override
     public String getLargestRoom(List<Room> rooms) {
         String largestRoom = "";
         double largestRoomArea = 0;
 
         for (Room room : rooms) {
-            double roomArea = room.getRoomWidth() * room.getRoomLength();
+            double roomArea = getRoomArea(room);
             if (roomArea > largestRoomArea) {
                 largestRoomArea = roomArea;
                 largestRoom = room.getRoomName();
@@ -32,7 +36,7 @@ public class PropertyService implements IProperty {
         return rooms
             .stream()
             .map(room -> {
-                double roomArea = room.getRoomWidth() * room.getRoomLength();
+                double roomArea = getRoomArea(room);
                 return new RoomDTO(room, roomArea);
             })
             .collect(Collectors.toList());
@@ -40,11 +44,7 @@ public class PropertyService implements IProperty {
 
     @Override
     public double getPropArea(List<Room> rooms) {
-        double propArea = 0.0;
-        for (Room room : rooms) {
-            propArea += room.getRoomLength() * room.getRoomWidth();
-        }
-        return propArea;
+        return rooms.stream().mapToDouble(this::getRoomArea).sum();
     }
 
     @Override

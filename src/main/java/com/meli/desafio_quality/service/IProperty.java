@@ -1,5 +1,6 @@
 package com.meli.desafio_quality.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.meli.desafio_quality.exception.NotFoundException;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
@@ -12,7 +13,9 @@ public interface IProperty {
 
     List<Property> getAllProperties();
 
+    Property getTotalArea(String propName);
+
     Room getBiggerRoom(String propName);
 
-    List<Room>  getAreaRoomsService(String propName );
+    List<Room>  getAreaRooms(String propName);
 }

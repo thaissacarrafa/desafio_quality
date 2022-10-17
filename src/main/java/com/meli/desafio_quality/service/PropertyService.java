@@ -64,21 +64,6 @@ public class PropertyService implements IProperty {
     }
 
     @Override
-    public PropertyDTO processProperty(Property property) {
-        if (districtExists(property.getDistrict())) {
-            return new PropertyDTO(
-                property,
-                getPropArea(property.getRooms()),
-                getPropValue(property),
-                getLargestRoom(property.getRooms()),
-                getRoomsFormatted(property.getRooms())
-            );
-        } else {
-            throw new NotFoundException("District not found");
-        }
-    }
-
-    @Override
     public boolean districtExists(District district) {
         try {
             return districtRepo
@@ -90,5 +75,23 @@ public class PropertyService implements IProperty {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    @Override
+    public PropertyDTO processProperty(Property property) {
+        District district = property.getDistrict();
+        List<Room> rooms = property.getRooms();
+
+        if (!districtExists(district)) {
+            throw new NotFoundException("District not found");
+        }
+
+        return new PropertyDTO(
+            property,
+            getPropArea(rooms),
+            getPropValue(property),
+            getLargestRoom(rooms),
+            getRoomsFormatted(rooms)
+        );
     }
 }

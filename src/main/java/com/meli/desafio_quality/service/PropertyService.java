@@ -9,8 +9,11 @@ import com.meli.desafio_quality.model.Room;
 import com.meli.desafio_quality.repo.DistrictRepo;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +22,7 @@ public class PropertyService implements IProperty {
     @Autowired
     private DistrictRepo districtRepo;
 
-    private double getRoomArea(Room room) {
+    public double getRoomArea(Room room) {
         return room.getRoomWidth() * room.getRoomLength();
     }
 
@@ -62,6 +65,7 @@ public class PropertyService implements IProperty {
             .getValueDistrictM2()
             .multiply(BigDecimal.valueOf(propArea));
     }
+
 
     @Override
     public boolean districtExists(District district) {

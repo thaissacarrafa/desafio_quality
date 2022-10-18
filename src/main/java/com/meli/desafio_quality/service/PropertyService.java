@@ -2,15 +2,22 @@ package com.meli.desafio_quality.service;
 
 import com.meli.desafio_quality.dto.PropertyDTO;
 import com.meli.desafio_quality.dto.RoomDTO;
+import com.meli.desafio_quality.exception.NotFoundException;
+import com.meli.desafio_quality.model.District;
 import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
+import com.meli.desafio_quality.repo.DistrictRepo;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PropertyService implements IProperty {
+
+    @Autowired
+    private DistrictRepo districtRepo;
 
     private double getRoomArea(Room room) {
         return room.getRoomWidth() * room.getRoomLength();
@@ -57,13 +64,34 @@ public class PropertyService implements IProperty {
     }
 
     @Override
+    public boolean districtExists(District district) {
+        try {
+            return districtRepo
+                .getAll()
+                .stream()
+                .anyMatch(d ->
+                    d.getPropDistrict().equals(district.getPropDistrict())
+                );
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    @Override
     public PropertyDTO processProperty(Property property) {
+        District district = property.getDistrict();
+        List<Room> rooms = property.getRooms();
+
+        if (!districtExists(district)) {
+            throw new NotFoundException("District not found");
+        }
+
         return new PropertyDTO(
             property,
-            getPropArea(property.getRooms()),
+            getPropArea(rooms),
             getPropValue(property),
-            getLargestRoom(property.getRooms()),
-            getRoomsFormatted(property.getRooms())
+            getLargestRoom(rooms),
+            getRoomsFormatted(rooms)
         );
     }
 }

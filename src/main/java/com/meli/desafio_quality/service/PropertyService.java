@@ -6,13 +6,15 @@ import com.meli.desafio_quality.model.Property;
 import com.meli.desafio_quality.model.Room;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class PropertyService implements IProperty {
 
-    private double getRoomArea(Room room) {
+    public double getRoomArea(Room room) {
         return room.getRoomWidth() * room.getRoomLength();
     }
 
@@ -55,6 +57,7 @@ public class PropertyService implements IProperty {
             .getValueDistrictM2()
             .multiply(BigDecimal.valueOf(propArea));
     }
+
 
     @Override
     public PropertyDTO processProperty(Property property) {

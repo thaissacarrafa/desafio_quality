@@ -1,8 +1,6 @@
 # desafio-quality
 
-**Desafio Quality** é o serviço responsável por melhorar a experiência do usuário da plataforma de vendas de produtos.
-
-O Objetivo desta API é fazer exercícios de testes unitários.
+**Desafio Quality** tem como objetivo testar os conhecimentos de testes unitários do grupo. 
 
 ## DOCUMENTAÇÃO
 
